@@ -9,4 +9,4 @@ var schema = new Schema({
 
 schema.plugin(mongooseUniqueValidator);
 
-module.exports = mongoose.model('Form', schema,'form');
+module.exports = mongoose.model('Form', schema,'forms');

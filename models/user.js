@@ -10,4 +10,4 @@ var schema = new Schema({
 
 schema.plugin(mongooseUniqueValidator);
 
-module.exports = mongoose.model('User', schema,'user');
+module.exports = mongoose.model('User', schema,'users');

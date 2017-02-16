@@ -3,11 +3,10 @@ var Schema = mongoose.Schema;
 var mongooseUniqueValidator = require('mongoose-unique-validator');
 
 var schema = new Schema({
-    firstname: {type: String, required: true},
-    lastname: {type: String, required: true},
+    username: {type: String, required: true},
     email: {type: String, required: true, unique: true}
 });
 
 schema.plugin(mongooseUniqueValidator);
 
-module.exports = mongoose.model('User', schema,'user');
+module.exports = mongoose.model('Form', schema,'form');

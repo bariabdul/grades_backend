@@ -78,8 +78,8 @@ router.patch('/:id', function (req, res, next) {
         }
         if (!user) {
             return res.status(500).json({
-                title: 'No Message Found!',
-                error: {message: 'Message not found'}
+                title: 'No user Found!',
+                error: {message: 'User not found'}
             });
         }
         user.firstname = req.body.firstname;

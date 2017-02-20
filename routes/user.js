@@ -40,20 +40,20 @@ router.post('/', function (req, res, next) {
 });
 
 router.delete('/:id', function(req, res, next) {
-    User.findById(req.params.id, function (err, id) {
+    User.findById(req.params.id, function (err, user) {
         if (err) {
             return res.status(500).json({
                 title: 'An error occurred',
                 error: err
             });
         }
-        if (!id) {
+        if (!user) {
             return res.status(500).json({
                 title: 'No id Found!',
                 error: {message: 'id not found'}
             });
         }
-        id.remove(function(err, result) {
+        user.remove(function(err, result) {
             if (err) {
                 return res.status(500).json({
                     title: 'An error occurred',
@@ -62,6 +62,38 @@ router.delete('/:id', function(req, res, next) {
             }
             res.status(200).json({
                 message: 'Deleted user',
+                obj: result
+            });
+        });
+    });
+});
+
+router.patch('/:id', function (req, res, next) {
+    User.findById(req.params.id, function (err, user) {
+        if (err) {
+            return res.status(500).json({
+                title: 'An error occurred',
+                error: err
+            });
+        }
+        if (!user) {
+            return res.status(500).json({
+                title: 'No Message Found!',
+                error: {message: 'Message not found'}
+            });
+        }
+        user.firstname = req.body.firstname;
+        user.lastname = req.body.lastname;
+        user.email = req.body.email;
+        user.save(function(err, result) {
+            if (err) {
+                return res.status(500).json({
+                    title: 'An error occurred',
+                    error: err
+                });
+            }
+            res.status(200).json({
+                message: 'Updated message',
                 obj: result
             });
         });

@@ -39,4 +39,32 @@ router.post('/', function (req, res, next) {
     });
 });
 
+router.delete('/:id', function(req, res, next) {
+    User.findById(req.params.id, function (err, id) {
+        if (err) {
+            return res.status(500).json({
+                title: 'An error occurred',
+                error: err
+            });
+        }
+        if (!id) {
+            return res.status(500).json({
+                title: 'No id Found!',
+                error: {message: 'id not found'}
+            });
+        }
+        id.remove(function(err, result) {
+            if (err) {
+                return res.status(500).json({
+                    title: 'An error occurred',
+                    error: err
+                });
+            }
+            res.status(200).json({
+                message: 'Deleted user',
+                obj: result
+            });
+        });
+    });
+});
 module.exports = router;

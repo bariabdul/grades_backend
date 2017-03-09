@@ -12,7 +12,11 @@ router.get('/', function (req, res, next) {
                     error: err
                 });
             }
-            res.json(user);
+            res.status(201).json({
+            success: 1,
+            message: 'Saved data',
+            obj: user
+        });
         });
 });
 

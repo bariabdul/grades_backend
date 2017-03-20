@@ -9,7 +9,7 @@ var numRoutes = require('./routes/num');
 
 var app = express();
 //mongoose.connect('localhost:27017/restapi_test');
-mongoose.connect('mongodb://root:toor@ds157819.mlab.com:57819/restapi_deployement');
+mongoose.connect('');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));

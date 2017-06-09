@@ -1,11 +1,11 @@
 var express = require('express');
 var router = express.Router();
 
-var User = require('../models/user');
+var Insert = require('../models/insert');
 
 router.get('/', function (req, res, next) {
-    User.find()
-        .exec(function (err, user) {
+    Insert.find()
+        .exec(function (err, result) {
             if (err) {
                 return res.status(500).json({
                     title: 'An error occurred',
@@ -14,18 +14,18 @@ router.get('/', function (req, res, next) {
             }
             res.status(200).json({
                 message: 'Success',
-                obj: user
+                success:1,
+                obj: result
             });
         });
 });
 
 router.post('/', function (req, res, next) {
-    var user = new User({
-        firstname : req.body.firstname,
-        lastname : req.body.lastname,
-        email : req.body.email
+    var insert = new Insert({
+        quiz : req.body.quiz,
+        assignment : req.body.assignment
     });
-    user.save(function (err, result) {
+    insert.save(function (err, result) {
         if (err) {
             return res.status(500).json({
                 title: 'An error occurred',
@@ -34,13 +34,14 @@ router.post('/', function (req, res, next) {
         }
         res.status(201).json({
             message: 'Saved message',
+            success:1,
             obj: result
         });
     });
 });
 
 router.delete('/:id', function(req, res, next) {
-    User.findById(req.params.id, function (err, user) {
+    Insert.findById(req.params.id, function (err, user) {
         if (err) {
             return res.status(500).json({
                 title: 'An error occurred',
@@ -61,42 +62,13 @@ router.delete('/:id', function(req, res, next) {
                 });
             }
             res.status(200).json({
-                message: 'Deleted user',
+                message: 'Deleted data',
+                success:1,
                 obj: result
             });
         });
     });
 });
 
-router.patch('/:id', function (req, res, next) {
-    User.findById(req.params.id, function (err, user) {
-        if (err) {
-            return res.status(500).json({
-                title: 'An error occurred',
-                error: err
-            });
-        }
-        if (!user) {
-            return res.status(500).json({
-                title: 'No user Found!',
-                error: {message: 'User not found'}
-            });
-        }
-        user.firstname = req.body.firstname;
-        user.lastname = req.body.lastname;
-        user.email = req.body.email;
-        user.save(function(err, result) {
-            if (err) {
-                return res.status(500).json({
-                    title: 'An error occurred',
-                    error: err
-                });
-            }
-            res.status(200).json({
-                message: 'Updated message',
-                obj: result
-            });
-        });
-    });
-});
+
 module.exports = router;

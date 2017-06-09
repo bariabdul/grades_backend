@@ -2,21 +2,14 @@ var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 
-var userRoutes = require('./routes/user');
-var userdataRoutes = require('./routes/userdata');
-var formRoutes = require('./routes/form');
-var numRoutes = require('./routes/num');
+var insertRoutes = require('./routes/insert');
 
 var app = express();
-//mongoose.connect('localhost:27017/restapi_test');
-mongoose.connect('');
+mongoose.connect('mongodb://root:toor@ds163701.mlab.com:63701/grades');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
-app.use('/user', userRoutes);
-app.use('/userdata', userdataRoutes);
-app.use('/form', formRoutes);
-app.use('/num', numRoutes);
+app.use('/insert', insertRoutes);
 
 module.exports = app;
